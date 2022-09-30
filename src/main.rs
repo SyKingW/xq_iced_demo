@@ -1,9 +1,9 @@
 /// UI 库
 use iced::{
-    button, executor, pane_grid, pick_list, scrollable, slider, text_input, tooltip, Align,
+    button, executor, pane_grid, pick_list, scrollable, slider, text_input, tooltip,
     Application, Button, Checkbox, Color, Column, Command, Container, Element, Font,
-    HorizontalAlignment, Length, PaneGrid, PickList, ProgressBar, Radio, Row, Rule, Scrollable,
-    Settings, Slider, Text, TextInput, Tooltip, VerticalAlignment,
+    Length, PaneGrid, PickList, ProgressBar, Radio, Row, Rule, Scrollable,
+    Settings, Slider, Text, TextInput, Tooltip, 
 };
 
 use std::ops::RangeInclusive;
@@ -111,14 +111,14 @@ impl Application for Hello {
     }
 
     fn title(&self) -> String {
-        println!("title");
+        // println!("title");
         // 标题就算没有字体，也能显示中文，但是 iced 的控件不行
         // String::from("Hello world")
         String::from("你好，世界")
     }
 
     fn view(&mut self) -> Element<Self::Message> {
-        println!("view");
+        // println!("view");
 
         // text
         let text = Text::new(&self.text_str)
@@ -127,8 +127,8 @@ impl Application for Hello {
         .width(Length::Units(200)) // 宽度(默认自适应)
         .color(Color::new(0.2, 0.8, 0.2, 1.0)) // 字颜色
         .font(XQFONT) // 字体
-        .vertical_alignment(VerticalAlignment::Center) // 字纵向的排列
-        .horizontal_alignment(HorizontalAlignment::Center) // 字横向的排列
+        .vertical_alignment(iced::alignment::Vertical::Center) // 字纵向的排列
+        .horizontal_alignment(iced::alignment::Horizontal::Center) // 字横向的排列
         ;
 
         // textinput
@@ -147,8 +147,8 @@ impl Application for Hello {
         // button
         let xq_button = Button::new(&mut self.button_state, Text::new("Touch me!(Button)"))
             .on_press(HelloMessage::Button) // 点击发出 message
-            .min_width(250) // 最小宽度
-            .min_height(60) // 最小高度
+            .width(Length::Units(250)) 
+            .height(Length::Units(60)) 
             .padding(20) // 内间距
             ;
 
@@ -181,7 +181,7 @@ impl Application for Hello {
                 PaneState::Horizontal => Text::new("我是 pane1, 点我横向切割").font(XQFONT),
             })
         })
-        .on_drag(HelloMessage::PaneDragged) // 拖动事件
+        .on_drag(HelloMessage::PaneDragged) // 拖动事件
         .on_resize(10, HelloMessage::PaneResized) // 刷新布局事件
         .on_click(HelloMessage::PaneClick) // 点击事件
         .height(Length::Units(500))
@@ -263,7 +263,7 @@ impl Application for Hello {
             .push(xq_pane_grid)
             .padding(16) // 内间距
             .spacing(12) // 每个控件的间距
-            .align_items(Align::Start) // 布局对齐方式，默认就是start
+            .align_items(iced::Alignment::Start) // 布局对齐方式，默认就是start
             .max_height(1000000) // 最大高度
             .max_width(1000000) // 最大宽度
             ; 
@@ -277,9 +277,8 @@ impl Application for Hello {
     fn update(
         &mut self,
         message: Self::Message,
-        _: &mut iced::Clipboard,
     ) -> Command<Self::Message> {
-        println!("update");
+        // println!("update");
         match message {
             HelloMessage::Button => {
                 self.text_str = String::from("Touch Button(Text)");
